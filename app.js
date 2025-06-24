@@ -43,8 +43,10 @@ const app = Vue.createApp({
     },
     methods: {
         stepChange(number) {
-            this.stepPosition = ['-1', '1'].includes(number)
-                                ? this.stepPosition + Number(number) : number
+            if (this.isLastPosition) {
+                this.stepPosition = ['-1', '1'].includes(number)
+                                    ? this.stepPosition + Number(number) : number
+            }
         },
         restartCourse() {
             this.stepPosition = 0
@@ -52,8 +54,14 @@ const app = Vue.createApp({
     },
     computed: {
         stepText() {
-            return this.stepPosition < this.steps.length
+            return this.isLastPosition
                 ? this.steps[this.stepPosition].text : this.againText
+        },
+        isFirstPosition() {
+            return this.stepPosition === 0
+        },
+        isLastPosition() {
+            return this.stepPosition < this.steps.length
         }
     }
 })

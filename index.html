@@ -14,10 +14,10 @@
                     <div class="steps-content">{{ stepText }}</div>
                     <ul class="steps-list">
                         <li class="steps-item"
-                            :class="[
-                                stepPosition === key ? 'active' : '',
-                                stepPosition > key ? 'done' : ''
-                            ]"
+                            :class="[{
+                                active: stepPosition === key,
+                                done: stepPosition > key
+                            }]"
                             @click="stepChange(key)"
                             v-for="(step, key) in steps"
                         >
@@ -25,16 +25,16 @@
                         </li>
                     </ul>
                 </div>
-                <div v-if="stepPosition < 5">
+                <div v-if="isLastPosition">
                     <button
                         class="btn"
-                        :disabled="stepPosition === 0"
+                        :disabled="isFirstPosition"
                         @click="stepChange('-1')"
                     >Назад</button>
                     <button
                         class="btn primary"
                         @click="stepChange('1')"
-                    >{{ stepPosition < 4 ? 'Вперед' : 'Закончить'}}</button>
+                    >{{ stepPosition < steps.length - 1 ? 'Вперед' : 'Закончить'}}</button>
                 </div>
                 <button v-else
                     class="btn"
