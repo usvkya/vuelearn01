@@ -38,6 +38,7 @@ const app = Vue.createApp({
                 },
             ],
             stepPosition: 0,
+            againText: 'Для повтора нажмите кнопку "Начать заного"'
         }
     },
     methods: {
@@ -51,7 +52,8 @@ const app = Vue.createApp({
     },
     computed: {
         stepText() {
-            return this.steps[this.stepPosition < 5 ? this.stepPosition : 4].text
+            return this.stepPosition < this.steps.length
+                ? this.steps[this.stepPosition].text : this.againText
         }
     }
 })
