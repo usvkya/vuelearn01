@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Как работает Vue</title>
+        <link rel="stylesheet" href="theme.css" />
+    </head>
+    <body>
+        <div class="container pt-5" id="app" v-cloak>
+            <div class="card">
+                <h1>План по изучению Vue.js</h1>
+                <div class="steps">
+                    <div class="steps-content">{{ stepText }}</div>
+                    <ul class="steps-list">
+                        <li class="steps-item"
+                            :class="[
+                                stepPosition === key ? 'active' : '',
+                                stepPosition > key ? 'done' : ''
+                            ]"
+                            @click="stepChangeToNumber(key)"
+                            v-for="(step, key) in steps"
+                        >
+                            <span>{{ key + 1 }}</span> {{ step }}
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="stepPosition < 5">
+                    <button
+                        class="btn"
+                        :disabled="stepPosition === 0"
+                        @click="stepChange(-1)"
+                    >Назад</button>
+                    <button
+                        class="btn primary"
+                        @click="stepChange(1)"
+                    >{{ stepPosition < 4 ? 'Вперед' : 'Закончить'}}</button>
+                </div>
+                <button v-else
+                    class="btn"
+                    @click="restartCourse"
+                >Начать заново</button>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/vue@3.5.17/dist/vue.global.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
