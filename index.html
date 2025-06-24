@@ -18,10 +18,10 @@
                                 stepPosition === key ? 'active' : '',
                                 stepPosition > key ? 'done' : ''
                             ]"
-                            @click="stepChangeToNumber(key)"
+                            @click="stepChange(key)"
                             v-for="(step, key) in steps"
                         >
-                            <span>{{ key + 1 }}</span> {{ step }}
+                            <span>{{ key + 1 }}</span> {{ step.title }}
                         </li>
                     </ul>
                 </div>
@@ -29,11 +29,11 @@
                     <button
                         class="btn"
                         :disabled="stepPosition === 0"
-                        @click="stepChange(-1)"
+                        @click="stepChange('-1')"
                     >Назад</button>
                     <button
                         class="btn primary"
-                        @click="stepChange(1)"
+                        @click="stepChange('1')"
                     >{{ stepPosition < 4 ? 'Вперед' : 'Закончить'}}</button>
                 </div>
                 <button v-else
